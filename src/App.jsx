@@ -1,5 +1,6 @@
 import { useState } from "react";
 import logo_white from "./assets/noire-w.png";
+import sizechart from './assets/sizechart.jpg'
 import {
   FiHeart,
   FiShoppingBag,
@@ -25,7 +26,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const product = {
-  brand: "Noire",
+  brand: {en:"Noire",ml:"നോയ്‌ർ"},
   name: {
     en: "Classic Cotton Shirt",
     ml: "ക്ലാസിക് കോട്ടൺ ഷർട്ട്",
@@ -38,27 +39,27 @@ const product = {
     {
       color: "White",
       images: [
-        "https://images.unsplash.com/photo-1620012253295-c15cc3b65d8f?auto=format&fit=crop&q=80&w=1000",
-        "https://images.unsplash.com/photo-1620012253295-c15cc3b65d8f?auto=format&fit=crop&q=80&w=1000",
-        "https://images.unsplash.com/photo-1620012253295-c15cc3b65d8f?auto=format&fit=crop&q=80&w=1000",
+        "src/assets/white1.jpg",
+        "src/assets/white2.jpg",
+        "src/assets/white3.jpg",
       ],
       price: 1999,
     },
     {
       color: "Black",
       images: [
-        "https://images.unsplash.com/photo-1620012253295-c15cc3b65d8f?auto=format&fit=crop&q=80&w=1000",
-        "https://images.unsplash.com/photo-1620012253295-c15cc3b65d8f?auto=format&fit=crop&q=80&w=1000",
-        "https://images.unsplash.com/photo-1620012253295-c15cc3b65d8f?auto=format&fit=crop&q=80&w=1000",
+        "src/assets/black1.jpg",
+        "src/assets/black2.jpg",
+        "src/assets/black3.jpg",
       ],
       price: 2199,
     },
     {
       color: "Navy",
       images: [
-        "https://images.unsplash.com/photo-1620012253295-c15cc3b65d8f?auto=format&fit=crop&q=80&w=1000",
-        "https://images.unsplash.com/photo-1620012253295-c15cc3b65d8f?auto=format&fit=crop&q=80&w=1000",
-        "https://images.unsplash.com/photo-1620012253295-c15cc3b65d8f?auto=format&fit=crop&q=80&w=1000",
+        "src/assets/navy1.jpg",
+        "src/assets/navy2.jpg",
+        "src/assets/navy3.jpg",
       ],
       price: 2099,
     },
@@ -79,7 +80,11 @@ const product = {
   reviews: [
     {
       id: 1,
-      user: "Sarah M.",
+
+      user: {
+        en:"Sarah M.", 
+        ml:"ശറഹ് എം."
+       },
       rating: 5,
       comment: {
         en: "Perfect fit and amazing quality!",
@@ -89,7 +94,11 @@ const product = {
     },
     {
       id: 2,
-      user: "John D.",
+ 
+      user: {
+        en:"John D.", 
+        ml:"ജോൺ ഡി."
+       },
       rating: 4,
       comment: {
         en: "Great shirt, slightly long sleeves",
@@ -99,7 +108,11 @@ const product = {
     },
     {
       id: 3,
-      user: "Emma R.",
+      
+      user: {
+        en:"Rahul", 
+        ml:"രാഹുൽ "
+       },
       rating: 5,
       comment: {
         en: "Exactly what I was looking for!",
@@ -109,7 +122,11 @@ const product = {
     },
     {
       id: 4,
-      user: "Michael P.",
+
+      user: {
+        en:"Sahal", 
+        ml:"സഹൽ "
+       },
       rating: 3,
       comment: {
         en: "Good quality but runs large",
@@ -128,30 +145,43 @@ const product = {
   relatedProducts: [
     {
       id: 1,
-      name: "Linen Shirt",
+      name: {
+         en:"Linen Shirt", 
+         ml:"ലൈനിന്  ഷർട്ട്"
+        },
       price: 1799,
       image:
-        "https://images.unsplash.com/photo-1620012253295-c15cc3b65d8f?auto=format&fit=crop&q=80&w=1000",
+        "src/assets/linen.jpg",
+        
     },
     {
       id: 2,
-      name: "Denim Shirt",
+
+      name: {
+        en:"Denim Shirt", 
+        ml:"ഡെനിം ഷർട്ട്"
+       },
       price: 2499,
       image:
-        "https://images.unsplash.com/photo-1620012253295-c15cc3b65d8f?auto=format&fit=crop&q=80&w=1000",
+        "src/assets/denim.jpg"
     },
     {
       id: 3,
-      name: "Checked Shirt",
+
+      name: {
+        en:"Checked Shirt", 
+        ml:"ചെക്കഡ്‌ ഷർട്ട്"
+       },
       price: 1999,
       image:
-        "https://images.unsplash.com/photo-1620012253295-c15cc3b65d8f?auto=format&fit=crop&q=80&w=1000",
+      "src/assets/check.jpg",
+
     },
   ],
 };
 
 function App() {
-  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedSize, setSelectedSize] = useState("M");
   const [selectedColor, setSelectedColor] = useState("White");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [language, setLanguage] = useState("en");
@@ -317,7 +347,7 @@ function App() {
           <div className="space-y-6">
             <div>
               <p className="text-xl font-medium text-[#908180]">
-                {product.brand}
+                {product.brand[language]}
               </p>
               <h1 className="text-3xl font-bold text-[#706060] mt-1">
                 {product.name[language]}
@@ -336,7 +366,7 @@ function App() {
                   ))}
                 </div>
                 <span className="text-[#908180]">
-                  ({product.reviews.length} reviews)
+                  ({product.reviews.length} {language === "en" ? "reviews" : "റിവ്യൂസ് "})
                 </span>
               </div>
               <div className="mt-4">
@@ -530,7 +560,7 @@ function App() {
               <div key={review.id} className="border-b border-[#e0e0e0] pb-6">
                 <div className="flex items-center justify-between mb-2">
                   <div>
-                    <p className="font-medium text-[#706060]">{review.user}</p>
+                    <p className="font-medium text-[#706060]">{review.user[language]}</p>
                     <div className="flex items-center mt-1">
                       {[...Array(5)].map((_, i) => (
                         <FiStar
@@ -570,7 +600,7 @@ function App() {
                   />
                 </div>
                 <h3 className="text-lg font-medium text-[#706060]">
-                  {item.name}
+                  {item.name[language]}
                 </h3>
                 <p className="text-[#908180]">₹{item.price}</p>
               </div>
@@ -601,7 +631,7 @@ function App() {
 
             {/* Quick Links */}
             <div>
-              <h3 className="text-lg font-semibold">Quick Links</h3>
+              <h3 className="text-lg font-semibold">{language === "en" ? "Quick Links" : "ക്വിക്ക് ലിനക്സ്  "}</h3>
               <ul className="mt-4 space-y-2">
                 <li>
                   <a href="#" className="text-sm hover:text-[#706060] transition">
@@ -628,7 +658,7 @@ function App() {
 
             {/* Newsletter */}
             <div>
-              <h3 className="text-lg font-semibold">Newsletter</h3>
+              <h3 className="text-lg font-semibold">{language === "en" ? "Newsletter" : "ന്യൂസ്ലെറ്റെർ"}</h3>
               <p className="mt-4 text-sm">
                 {language === "en"
                   ? "Subscribe to get updates on new arrivals and exclusive offers."
@@ -662,7 +692,7 @@ function App() {
               {language === "en" ? "Size Chart" : "വലിപ്പം ചാർട്ട്"}
             </h2>
             <img
-              src="https://via.placeholder.com/800x400?text=Size+Chart"
+              src={sizechart}
               alt="Size Chart"
               className="w-full rounded-lg"
             />
